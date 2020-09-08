@@ -1,0 +1,14 @@
+[Unit]
+Description=Google Drive ARCHIVIO
+AssertPathIsDirectory=/mnt/archivio
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/rclone mount MS_ARCHIVIO: /mnt/archivio --vfs-cache-mode full
+
+ExecStop=/bin/fusermount -u /mnt/archivio
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target

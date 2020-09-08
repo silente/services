@@ -1,0 +1,22 @@
+[Unit]
+Description=Google Drive MEDIA
+AssertPathIsDirectory=/mnt/media
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/rclone mount CACHEMEDIA: /mnt/media \
+--allow-other \
+--umask 000 \
+--dir-perms 777 \
+--file-perms 777 \
+--fast-list \
+--vfs-cache-mode writes \
+--vfs-read-chunk-size 128M \
+--dir-cache-time 96h
+
+ExecStop=/bin/fusermount -u /mnt/media
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target

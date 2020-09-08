@@ -1,0 +1,14 @@
+[Unit]
+Description=Google Drive FTP
+AssertPathIsDirectory=/mnt/ftp
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/rclone mount GG_FTP: /mnt/ftp --vfs-cache-mode full
+
+ExecStop=/bin/fusermount -u /mnt/ftp
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,14 @@
+[Unit]
+Description=Google Drive Torrent
+AssertPathIsDirectory=/docker/qbittorrent/downloads/completed
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/rclone mount GG_FTP: /docker/qbittorrent/downloads/completed --vfs-cache-mode full
+
+ExecStop=/bin/fusermount -u /docker/qbittorrent/downloads/completed
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target

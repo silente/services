@@ -1,0 +1,37 @@
+[Unit]
+
+Description=RClone Service
+
+[Service]
+
+Type=Notify
+
+ExecStart=/usr/bin/rclone mount CACHE: /mnt/plex \
+
+--allow-other \
+
+--umask 000 \
+
+--dir-perms 777 \
+
+--file-perms 777 \
+
+--fast-list \
+
+--vfs-cache-mode writes \
+
+--vfs-read-chunk-size 128M \
+
+--dir-cache-time 96h
+
+​
+
+ExecStop=/bin/fusermount -uz /mnt/plex
+
+Restart=on-failure
+
+​
+
+[Install]
+
+WantedBy=multi-user.target
